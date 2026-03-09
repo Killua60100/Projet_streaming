@@ -1,4 +1,5 @@
 <?php
+
 function afficherFilms($recherche) {
     $apiKey = "738abeff";
     $url = "http://www.omdbapi.com/?apikey=" . $apiKey . "&s=" . urlencode($recherche);
