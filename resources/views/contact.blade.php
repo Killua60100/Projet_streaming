@@ -7,17 +7,7 @@
 </head>
 <body>
 
-    <header>
-        <div class="logo">HYPER</div>
-        <nav style ="margin-right: 30%; gap = 10px">
-            <ul>
-                <li>Films</li>
-                <li>Series</li>
-                <li>Mon compte</li>
-                <li>Contact</li>
-            </ul>
-        </nav>
-    </header>
+     @include('header')
 
 
 

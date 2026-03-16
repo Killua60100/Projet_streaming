@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('connexion');
+})->name('connexion');
+
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+Route::get('/inscription', function () {
+    return view('inscription');
+})->name('inscription');
+
+Route::post('/inscription', [UserController::class, 'store'])->name('inscription.store');
+
+Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
 

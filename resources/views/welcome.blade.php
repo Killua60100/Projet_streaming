@@ -9,19 +9,7 @@
 </head>
 <body class="body1">
 
-    <header>
-        <div class="logo">HYPER</div>
-        <nav style ="margin-right: 30%; gap = 10px">
-            <ul>
-                <li><a href="{{ route('welcome') }}">Accueil</a></li>
-                <li><a href="{{ route('films') }}">Films</a></li>
-                <li><a href="{{ route('series') }}">Series</a></li>
-                <li><a href="{{ route('favoris') }}">Favoris</a></li>
-                <li><a href="{{ route('compte') }}">Mon Compte</a></li>
-                <li><a href="{{ route('contact') }}">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    @include('header')
 
 
     <section>
