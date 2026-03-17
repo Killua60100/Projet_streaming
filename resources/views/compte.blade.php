@@ -1,50 +1,44 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('css/style2.css') }}">
-        <title>Page de connexion</title>
-    </head>
-    <body>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mon compte - HYPER Streaming</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+<body class="body1">
 
+    @include('header')
 
-        @include('header')
-
-
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <br>
-                <br>
-                <div class="card border-danger bg-danger shadow ">
-                    <div class="card-header text-center">
-                        <h4>Mon compte</h4>
-                    </div>
-                    <div class="card-body text-center">
-                        <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}&size=80" class="rounded-circle mb-3" alt="photo profil">
-                        <h5 class="text-light">{{ Auth::user()->name }}</h5>
-                        <p class="text-light">{{ Auth::user()->email }}</p>
-                        <br>
-                        <div class="text-center">
-                            <p><strong>ID :</strong> {{ Auth::user()->id }}</p>
-                            <p><strong>Compte créé :</strong> {{ Auth::user()->created_at }}</p>
-                        </div>
-                        <a href="#" class="btn btn-danger mt-3">
-                            Modifier le profil
-                        </a>
-                    </div>
+    <main class="account-section">
+        <div class="account-wrapper">
+            <section class="profile-panel">
+                <h2>Mon compte</h2>
+                <div class="profile-avatar">
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&size=100" alt="Photo profil">
                 </div>
-            </div>
+                <h3>{{ Auth::user()->name }}</h3>
+                <p>{{ Auth::user()->email }}</p>
+                <div class="profile-details">
+                    <p><strong>ID :</strong> {{ Auth::user()->id }}</p>
+                    <p><strong>Compte créé :</strong> {{ Auth::user()->created_at }}</p>
+                </div>
+                <a href="#" class="bouton">Modifier le profil</a>
+            </section>
+
+            <section class="list-panel">
+                <h2>Liste des Favoris</h2>
+                <p>Votre liste de films favoris apparaîtra ici.</p>
+            </section>
+
+            <section class="list-panel">
+                <h2>À regarder plus tard</h2>
+                <p>Votre watchlist apparaîtra ici.</p>
+            </section>
         </div>
-        <br>
-        <section class="Favorite-row">
-            <h2 class="text-light">Liste des Favoris</h2>
-        </section>
-        <br>
-        <br>
-        <br>
-        <section class="WatchList-row">
-            <h2 class="text-light">A regarder plus tard</h2>
-        </section>
-        @include('footer')
-    </body>
+    </main>
+
+    @include('footer')
+
+</body>
 </html>

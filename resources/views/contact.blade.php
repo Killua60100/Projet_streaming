@@ -16,26 +16,26 @@
     <h1>Contactez-nous</h1>
     <p>Une question ? Envoyez-nous un message.</p>
 
-    <form class="contact-form" action="contact.php" method="POST">
+<form class="contact-form" action="contact.php" method="POST">
 
-        <div class="input-group">
-            <label>Nom</label>
-            <input type="text" name="nom" placeholder="Votre nom" required>
-        </div>
+    <div class="input-group">
+        <label>Nom</label>
+        <input type="text" name="nom" placeholder="Votre nom" required>
+    </div>
 
-        <div class="input-group">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="Votre email" required>
-        </div>
+    <div class="input-group">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Votre email" required>
+    </div>
 
-        <div class="input-group">
-            <label>Message</label>
-            <textarea name="message" placeholder="Votre message..." required></textarea>
-        </div>
+    <div class="input-group">
+        <label>Message</label>
+        <textarea name="message" placeholder="Votre message..." required></textarea>
+    </div>
 
-        <button type="submit" class="contact-btn">Envoyer</button>
+    <button type="submit" class="contact-btn">Envoyer</button>
 
-    </form>
+</form>
 
 </section>
 

@@ -68,8 +68,72 @@
 
     @include('footer')
 
+    <!-- Modal -->
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="movieDetails">
+                <!-- Movie details will be loaded here -->
+            </div>
+        </div>
+    </div>
 
-    </main>
+    <script>
+        function showMovieDetails(element) {
+            var imdbid = element.getAttribute('data-imdbid');
+            fetch('/movie/' + imdbid)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    var details = document.getElementById('movieDetails');
+                    var poster = data.Poster !== 'N/A' ? data.Poster : 'https://via.placeholder.com/300x450';
+                    details.innerHTML = `
+                    <div class="movie-content">
+                        <img src="${poster}" alt="${data.Title}" style="width: 300px; border-radius: 8px;">
+
+                        <div class="movie-info">
+
+                            <h1>${data.Title} (${data.Year})</h1>
+                            <p><strong>Genre :</strong> ${data.Genre}</p>
+                            <p><strong>Auteur :</strong> ${data.Director}</p>
+                            <p><strong>Acteur :</strong> ${data.Actors}</p>
+                            <p><strong>description :</strong> ${data.Plot}</p>
+
+                            <div style="margin-top: 30%;">
+
+                            <button class="bouton" onclick="likeMovie('${imdbid}')">Liker</button>
+                            <button class="bouton" onclick="watch('${imdbid}')">Regarder maintenant</button>
+
+                            </div>
+                        </div>
+                        </div>
+                    `;
+                    document.getElementById('movieModal').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error fetching movie details:', error);
+                });
+        }
+
+        function likeMovie(imdbid) {
+            alert('Film ajouté aux favoris: ' + imdbid);
+        }
+
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('movieModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById('movieModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
 
 </body>
 </html>

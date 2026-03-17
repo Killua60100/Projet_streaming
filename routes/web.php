@@ -47,6 +47,17 @@ Route::get('/compte', function () {
     return view('compte');
 })->name('compte');
 
+// Movie detail JSON API (used by welcome.blade.php showMovieDetails)
+
+Route::get('/movie/{imdbid}', function ($imdbid) {
+    include_once base_path('config/get_api.php');
+    $details = getMovieDetails($imdbid);
+    if (!$details) {
+        return response()->json(['error' => 'Detail not found'], 404);
+    }
+    return response()->json($details);
+});
+
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
