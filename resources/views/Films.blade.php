@@ -23,8 +23,8 @@
             <h2>Top Films</h2>
             
         
-            <div id="movieGrid" class="movie-grid">
-                <?php afficherTousLesFilms('fra', 2); ?>
+            <div id="movieGrid1" class="movie-grid">
+                <?php afficherTousLesFilms('new', 1); ?>
             </div>
             <div class="scroll-indicator">→</div>
             
@@ -56,12 +56,15 @@
 
 <script>
     let currentPage = 1;
-    let currentQuery = 'a';
+    let currentQuery = '';
     const movieGrid1 = document.getElementById('movieGrid1');
     const movieGrid2 = document.getElementById('movieGrid2');
     const searchInput = document.getElementById('searchInput');
     const clearBtn = document.getElementById('clearSearch');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+    const initialMovieGrid1 = movieGrid1.innerHTML;
+    const initialMovieGrid2 = movieGrid2.innerHTML;
 
     function renderCards(items, targetGrid) {
         if (!items || !Array.isArray(items)) return;
@@ -100,29 +103,31 @@
             .then(data => {
                 if (!data.success) {
                     movieGrid1.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:#ff7373;">${data.message}</p>`;
-                    movieGrid2.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:#ff7373;">${data.message}</p>`;
                     return;
                 }
 
                 if (!append) {
                     movieGrid1.innerHTML = '';
-                    movieGrid2.innerHTML = '';
                 }
 
                 if (!data.movies || data.movies.length === 0) {
                     movieGrid1.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#aaa;">Aucun film trouvé.</p>';
-                    movieGrid2.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#aaa;">Aucun film trouvé.</p>';
                     return;
                 }
 
                 renderCards(data.movies, movieGrid1);
-                renderCards(data.movies, movieGrid2);
             })
             .catch(error => {
                 console.error('Erreur API :', error);
                 movieGrid1.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#ff0000;">Erreur de chargement</p>';
-                movieGrid2.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#ff0000;">Erreur de chargement</p>';
             });
+    }
+
+    function resetToInitialGrid() {
+        movieGrid1.innerHTML = initialMovieGrid1;
+        movieGrid2.innerHTML = initialMovieGrid2;
+        currentQuery = '';
+        currentPage = 1;
     }
 
     searchInput.addEventListener('input', function () {
@@ -132,17 +137,13 @@
             currentPage = 1;
             fetchMovies(currentQuery, currentPage, false);
         } else {
-            currentQuery = 'a';
-            currentPage = 1;
-            fetchMovies('a', 1, false);
+            resetToInitialGrid();
         }
     });
 
     clearBtn.addEventListener('click', function () {
         searchInput.value = '';
-        currentQuery = 'a';
-        currentPage = 1;
-        fetchMovies('a', 1, false);
+        resetToInitialGrid();
     });
 
     loadMoreBtn.addEventListener('click', function () {

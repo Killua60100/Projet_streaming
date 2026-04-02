@@ -23,8 +23,13 @@
 
             <h2>Top Séries</h2>
 
-            <div id="movieGrid" class="movie-grid">
+            <div id="movieGrid1" class="movie-grid">
                 <?php afficherToutesLesSeries('orange', 1); ?>
+            </div>
+            <div class="scroll-indicator">→</div>
+
+            <div id="movieGrid2" class="movie-grid">
+                <?php afficherToutesLesSeries('noir', 1); ?>
             </div>
             <div class="scroll-indicator">→</div>
 
@@ -42,7 +47,8 @@
 <script>
     let currentPage = 1;
     let currentQuery = 'orange'; // Correspond au query PHP initial
-    const movieGrid = document.getElementById('movieGrid');
+    const movieGrid1 = document.getElementById('movieGrid1');
+    const movieGrid2 = document.getElementById('movieGrid2');
     const searchInput = document.getElementById('searchInput');
     const clearBtn = document.getElementById('clearSearch');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
@@ -62,10 +68,10 @@
             `;
         }).join('');
 
-        movieGrid.insertAdjacentHTML('beforeend', cards);
+        movieGrid1.insertAdjacentHTML('beforeend', cards);
         
         // Vérifier si le contenu dépasse et afficher l'indicateur
-        checkOverflow(movieGrid);
+        checkOverflow(movieGrid1);
     }
 
     function checkOverflow(grid) {
@@ -84,16 +90,16 @@
             .then(response => response.json())
             .then(data => {
                 if (!data.success) {
-                    movieGrid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:#ff7373;">${data.message}</p>`;
+                    movieGrid1.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:#ff7373;">${data.message}</p>`;
                     return;
                 }
 
                 if (!append) {
-                    movieGrid.innerHTML = '';
+                    movieGrid1.innerHTML = '';
                 }
 
                 if (!data.movies || data.movies.length === 0) {
-                    movieGrid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#aaa;">Aucune série trouvée.</p>';
+                    movieGrid1.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#aaa;">Aucune série trouvée.</p>';
                     return;
                 }
 
@@ -101,7 +107,7 @@
             })
             .catch(error => {
                 console.error('Erreur API :', error);
-                movieGrid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#ff0000;">Erreur de chargement</p>';
+                movieGrid1.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#ff0000;">Erreur de chargement</p>';
             });
     }
 
@@ -112,10 +118,10 @@
             currentPage = 1;
             fetchSeries(currentQuery, currentPage, false);
         } else if (query.length === 0) {
-            // Remettre le contenu initial quand on efface la recherche
             currentQuery = 'orange';
             currentPage = 1;
-            location.reload(); // Recharger la page pour remettre le contenu PHP initial
+            movieGrid1.innerHTML = '';
+            fetchSeries('orange', 1, false); // recharge la grille 1
         }
     });
 
@@ -123,7 +129,8 @@
         searchInput.value = '';
         currentQuery = 'orange';
         currentPage = 1;
-        location.reload(); // Recharger pour remettre le contenu initial
+        movieGrid1.innerHTML = '';
+        fetchSeries('orange', 1, false);
     });
 
     loadMoreBtn.addEventListener('click', function () {
@@ -147,5 +154,6 @@
     };
 
     // Vérifier le scroll au chargement initial
-    checkOverflow(movieGrid);
+    checkOverflow(movieGrid1);
+    checkOverflow(movieGrid2);
 </script>
