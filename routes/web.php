@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
@@ -95,7 +96,6 @@ Route::get('/api/movies', function (Request $request) {
     
 });
 
-
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
@@ -109,8 +109,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
         $userCount = User::count();
         $adminCount = User::where('is_admin', true)->count();
+        $users = User::all();
 
         return view('admin.dashboard', compact('userCount','adminCount'));
     })->name('admin.dashboard');
 });
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+
