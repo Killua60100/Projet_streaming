@@ -111,7 +111,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         $adminCount = User::where('is_admin', true)->count();
         $users = User::all();
 
-        return view('admin.dashboard', compact('userCount','adminCount'));
+        return view('admin.dashboard', compact('userCount','adminCount','users'));
     })->name('admin.dashboard');
 });
 
