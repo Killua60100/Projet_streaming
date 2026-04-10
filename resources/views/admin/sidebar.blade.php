@@ -4,5 +4,5 @@
             @csrf
             <button type="submit" class="logout-btn">Se déconnecter</button>
         </form>
-        <a href="{{ route('profile.compte') }}" class="logout-btn">Retour à mon compte</a>
+        <a href="{{ route('profile.compte') }}" class="logout-btn">Retour a l'espace client</a>
 </div>

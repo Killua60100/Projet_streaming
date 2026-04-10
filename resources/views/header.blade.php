@@ -12,8 +12,4 @@
                 <li><a href="{{ route('contact') }}">Contact</a></li>
             </ul>
         </nav>
-        <form action="{{ route('logout') }}" method="POST" class="logout-form">
-            @csrf
-            <button type="submit" class="logout-btn">Déconnexion</button>
-        </form>
     </header>

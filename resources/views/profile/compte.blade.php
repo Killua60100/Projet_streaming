@@ -6,7 +6,7 @@
     <title>Mon compte - HYPER Streaming</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-<body class="body1">
+<body class="body">
 
     @include('header')
 
@@ -20,14 +20,19 @@
                 <h3>{{ Auth::user()->name }}</h3>
                 <p>{{ Auth::user()->email }}</p>
                 <div class="profile-details">
-                    <p><strong>ID :</strong> {{ Auth::user()->id }}</p>
-                    <p><strong>Compte créé :</strong> {{ Auth::user()->created_at }}</p>
+                    <p><strong>Compte créé le </strong> {{ Auth::user()->created_at }}</p>
                 </div>
                 <div class="profile-actions">
                     <a href="{{ route('profile.edit') }}" class="bouton">Modifier le profil</a>
+
                     @if(Auth::user()->is_admin)
                         <a href="{{ route('admin.dashboard') }}" class="bouton admin-btn">Accéder à l'espace admin</a>
                     @endif
+
+                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                        @csrf       
+                        <button type="submit" class="bouton">Déconnexion</button>
+                    </form>
                 </div>
             </section>
 
