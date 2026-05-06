@@ -83,9 +83,14 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:6|confirmed',
             'is_admin' => 'sometimes|boolean',
         ]);
+
+        if ($request->filled('password')) {
+            $validated = array_merge($validated, $request->validate([
+                'password' => 'string|min:6|confirmed',
+            ]));
+        }
 
         $data = [
             'name' => $validated['name'],

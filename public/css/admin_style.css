@@ -32,7 +32,7 @@
             transition: 0.3s;
         }
 
-        .sidebar a:hover {
+        .sidebar a:hover:not(.logout-btn) {
             color: #e50914;
         }
 
@@ -72,6 +72,37 @@
 
         .logout-btn:hover {
             background-color: #b20710;
+            color: white;
+        }
+
+        .bouton {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            background-color: #e50914;
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .bouton:hover {
+            background-color: #b20710;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .bouton.cancel {
+            background-color: #666;
+        }
+
+        .bouton.cancel:hover {
+            background-color: #4f4f4f;
         }
 
 
