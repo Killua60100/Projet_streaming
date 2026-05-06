@@ -122,16 +122,59 @@
                             </div>
                         </div>
                         </div>
+                        
+                        {{-- Commentaires Section (commenté)
+                        <div id="comments-section-${imdbid}" style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">
+                            <h3>Commentaires</h3>
+                            
+                            @if(Auth::check())
+                            <div id="comment-form-${imdbid}" style="margin-bottom: 20px;">
+                                <textarea id="comment-text-${imdbid}" placeholder="Écrivez votre commentaire..." style="width: 100%; height: 50px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; color: white; background-color: #222;"></textarea>
+                                <button onclick="submitComment('${imdbid}')" style="margin-top: 10px; padding: 10px 20px; background-color: #e50914; color: white; border: none; border-radius: 4px; cursor: pointer;">Envoyer</button>
+                            </div>
+                            @else
+                            <p><a href="{{ route('connexion') }}">Connectez-vous</a> pour laisser un commentaire.</p>
+                            @endif
+                            
+                            <div id="comments-list-${imdbid}"></div>
+                        </div>
+                        --}}
                     `;
                     document.getElementById('movieModal').style.display = 'block';
+                        // setTimeout(() => loadComments(imdbid), 100);
                 })
                 .catch(error => {
                     console.error('Error fetching movie details:', error);
                 });
         }
+        
+        /*
+ 
+        */ // 
 
         function likeMovie(imdbid) {
-            alert('Film ajouté aux favoris: ' + imdbid);
+            fetch('/like-movie', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ imdbid: imdbid })
+            })
+            .then(response => response.json().then(data => ({ status: response.status, data })))
+            .then(({ status, data }) => {
+                if (status === 401) {
+                    window.location.href = '{{ route('connexion') }}';
+                    return;
+                }
+
+                if (status !== 200 || data.status !== 'ok') {
+                    console.error('Like error:', data.message || data);
+                }
+            })
+            .catch(error => {
+                console.error('Network error while liking movie:', error);
+            });
         }
 
         document.querySelector('.close').onclick = function() {

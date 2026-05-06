@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,6 +103,14 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::middleware('auth')->post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Commentaires routes
+Route::get('/api/comments/{imdbId}', [CommentController::class, 'getComments']);
+Route::middleware('auth')->group(function () {
+    Route::post('/api/comments', [CommentController::class, 'store']);
+    Route::put('/api/comments/{comment}', [CommentController::class, 'update']);
+    Route::delete('/api/comments/{comment}', [CommentController::class, 'destroy']);
+});
 
 //Route côté admin
 Route::middleware(['auth', 'admin'])->group(function () {

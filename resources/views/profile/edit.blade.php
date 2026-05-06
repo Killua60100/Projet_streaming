@@ -81,7 +81,7 @@
                         autocomplete="new-password"
                     >
                     @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    <div class="form-text">Laisse vide si tu ne veux pas changer ton mot de passe.</div>
+                
                 </div>
                 {{-- CONFIRMATION --}}
                 <div class="input-group">

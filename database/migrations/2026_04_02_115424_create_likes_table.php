@@ -10,7 +10,7 @@ class CreateLikesTable extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('imdb_id');
+            $table->string('imdb_id', 20);
             $table->timestamps();
             $table->unique(['user_id', 'imdb_id']);
         });

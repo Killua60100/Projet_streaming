@@ -598,11 +598,14 @@ nav ul {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 800px;
+    max-width: 1000px;
+    max-height: 80vh;
     border-radius: 8px;
     color: white;
     display: flex;
+    flex-direction: column;
     gap: 20px;
+    overflow-y: auto;
 }
 
 .close {
@@ -632,6 +635,58 @@ nav ul {
 
 .movie-info{
     flex: 1;
+}
+
+#comments-section-tt0050083,
+#comments-section-tt0050086,
+[id^="comments-section-tt"] {
+    width: 100%;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+}
+
+#comments-section-tt0050083 h3,
+#comments-section-tt0050086 h3,
+[id^="comments-section-tt"] h3 {
+    color: #E50914;
+    margin-bottom: 15px;
+}
+
+[id^="comment-form-"] {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+}
+
+[id^="comment-text-"] {
+    width: 100% !important;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #222;
+    color: white;
+    font-family: Arial, sans-serif;
+    resize: vertical;
+}
+
+[id^="comment-text-"]:focus {
+    outline: none;
+    border-color: #E50914;
+}
+
+[id^="comments-list-"] {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.comment-item {
+    border-left: 3px solid #E50914;
+    padding: 12px;
+    margin: 12px 0;
+    background-color: #1a1a1a;
+    border-radius: 4px;
 }
 
 .logout-form {

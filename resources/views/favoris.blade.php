@@ -45,14 +45,13 @@
         .then(r => r.json())
         .then(data => {
             if (data.status === 'ok') {
-                alert('Film retiré des favoris');
                 window.location.reload();
             } else {
-                alert('Erreur: ' + (data.message || 'Impossible de retirer le favori'));
+                console.error('Unlike error:', data.message || 'Impossible de retirer le favori');
             }
         })
-        .catch(() => {
-            alert('Erreur réseau');
+        .catch((error) => {
+            console.error('Network error while unliking movie:', error);
         });
     }
 </script>
